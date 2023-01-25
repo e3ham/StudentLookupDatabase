@@ -7,7 +7,6 @@ public class CoursesEnrolled {
 
     public static ArrayList<CoursesEnrolled> listEnrol = new ArrayList<>();
 
-
     public static void displayCoursesEnrolled() {
         for (CoursesEnrolled s : listEnrol) {
             System.out.println("Student ID: " + s.StudentID + "; Course ID: " + s.CourseID + "; Student grade: " + s.grade);

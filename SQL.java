@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SQL {
@@ -51,6 +52,10 @@ public class SQL {
 
     public static void main(String[] args) {
 
+        int i = 1;
+
+        ArrayList<String> grades = new ArrayList<>();
+
         boolean value = false;
 
         int choice;
@@ -95,11 +100,23 @@ public class SQL {
                     value = true;
                     break;
                 case 6:
-                    System.out.println("This option allows you to search through the database in order to find students whose grade and classes matches their enrolment file.\n");
+                    boolean gradeTrigger = false;
+                    System.out.println(
+                            "This option allows you to search through the database in order to find students whose grade and classes matches their enrolment file.\n");
                     System.out.println("Enter course to search through: ");
                     String courseSearch = in.next();
-                    System.out.println("Enter grade criteria: ");
-                    String gradeSearch = in.next();
+
+                    while (gradeTrigger == false) {
+                        System.out.println("Enter grade criteria #" + i + " (ENTER 'DONE' TO EXIT):");
+                        i++;
+                        String gradeSearch = in.next();
+                        if (gradeSearch.equalsIgnoreCase("DONE")) {
+                            gradeTrigger = true;
+                            continue;
+                        } else {
+                            grades.add(gradeSearch);
+                        }
+                    }
                     for (Course c : Course.listCourses) {
                         System.out.println("ZERO");
                         if (c.name.equals(courseSearch)) {
@@ -108,7 +125,7 @@ public class SQL {
                                 System.out.println("SECOND");
                                 if (enrol.CourseID == c.CID) {
                                     System.out.println("THIRD");
-                                    if (enrol.grade.equals(gradeSearch)) {
+                                    if (grades.contains(enrol.grade)) {
                                         System.out.println("FOURTH");
                                         for (Student s : Student.listStudents) {
                                             if (enrol.StudentID == s.SID) {
